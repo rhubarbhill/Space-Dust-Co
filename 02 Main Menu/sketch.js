@@ -1,5 +1,8 @@
+let img
+
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(800, 800); 
+  img = loadImage("../art/rocket.png")
 }
 
 function draw() {
