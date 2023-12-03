@@ -1,4 +1,8 @@
 let starImg, rocketImg, rocket, font_reg, theme, sd_green, big_logo, font
+let asteroidImg, asteroid1, asteroid2, asteroid3, asteroid4, asteroid5, asteroid6, asteroid7, asteroid8, rocketdmg
+let fullheartImg, emptyheartImg, fullheart, emptyheart, heart1, heart2, heart3
+let grandmaRocketImg, grandmaRocket, SDCRocketImg, SDCRocket1, SDCRocket2, SDCRocket3, SDCRocket4, SDCRocket5, SDCRocket6
+let healingStationImg, healingStation, rocketheal, playImg, play, menuImg, menu
 let lyric01, lyric01_, lyric02, lyric02_, lyric03, lyric03_, lyric04, lyric04_, lyric05, lyric05_, lyric06, lyric06_
 let lyric07, lyric07_, lyric08, lyric08_, lyric09, lyric09_, lyric10, lyric10_, lyric11, lyric11_
 let lyric14, lyric14_, lyric15, lyric15_, lyric16, lyric16_, lyric17, lyric17_, lyric18, lyric18_, lyric19, lyric19_
@@ -17,6 +21,16 @@ function preload() {
   font_reg = loadFont("font/EffraStatic/Effra_Trial_Rg.ttf")
   theme = loadSound("sounds 01/01 Space Dust Co. Title Sequence.mp3")
   sd_green = loadImage("art 01/default green.png")
+  asteroidImg = loadImage("art 01/asteroid.png")
+  rocketdmg = loadSound("sounds 01/rocket damage.mp3")
+  fullheartImg = loadImage("art 01/full heart.png")
+  emptyheartImg = loadImage("art 01/empty heart.png")
+  grandmaRocketImg = loadImage("art 01/grandma rocket.png")
+  SDCRocketImg = loadImage("art 01/space dust co rocket.png")
+  healingStationImg = loadImage("art 01/healing station.png")
+  rocketheal = loadSound("sounds 01/rocket heals.wav")
+  playImg = loadImage("art 01/play.png")
+  menuImg = loadImage("art 01/menu link.png")
 
   big_logo = loadImage("art 01/big logo.png")
   font = loadFont("font/EffraStatic/Effra_Trial_Bd.ttf")
@@ -106,6 +120,96 @@ class Thing {
   }
 }
 
+class Misc extends Thing {
+  constructor(x, y, w, h, speed, image) {
+    super(x, y, speed, image)
+    this.w = w
+    this.h = h
+  }
+
+  display() {
+    image(this.image, this.x, this.y, this.w, this.h)
+  }
+
+  move() {
+    this.y += this.speed
+  }
+}
+
+let hitState = false
+
+class Asteroid extends Misc {
+  constructor(x, y, w, h, speed, image) {
+    super(x, y, w, h, speed, image)
+  }
+
+  move() {
+    this.y += this.speed
+  }
+
+  hit() {
+    if (this.y > 469 && hitState == false) {
+      rocketdmg.play()
+      hitState = true
+    }
+  }
+}
+
+let healState = false
+
+class Heart extends Misc {
+  constructor(x, y, w, h, speed, image) {
+    super(x, y, w, h, speed, image)
+  }
+
+  damaged() {
+    this.image = emptyheartImg
+  }
+
+  healed() {
+    this.image = fullheartImg
+  }
+}
+
+class Station extends Asteroid {
+  constructor(x, y, w, h, speed, image) {
+    super(x, y, w, h, speed, image)
+  }
+
+  heal() {
+    if (this.y > 469 && healState == false) {
+      rocketheal.play()
+      healState = true
+    }
+  }
+}
+
+class Menu {
+  constructor(x, y, handler) {
+    this.x = x
+    this.y = y
+    this.state = false;
+    this.handler = handler;
+  }
+
+  display() {
+    image(menuImg, this.x, this.y, 216, 122)
+  }
+
+  isClickedOn() {
+    if (dist(this.x, this.y, mouseX, mouseY) < 216 / 2) {
+        console.log("test1")
+        return true;
+    } else {
+        return false;
+    }
+}
+}
+
+function move() {
+  location.assign("../02 Main Menu/index.html")
+}
+
 class Rocket {
   constructor(x, y) {
     this.x = x
@@ -150,7 +254,28 @@ function setup() {
   star_speed = 1
   screen = new Thing(400, -300, 0, sd_green)
   rocket = new Rocket(380, 660) //y = 535
+  asteroid1 = new Asteroid(50, -100, 100, 100, 20, asteroidImg)
+  asteroid2 = new Asteroid(150, -100, 100, 100, 20, asteroidImg)
+  asteroid3 = new Asteroid(250, -100, 100, 100, 20, asteroidImg)
+  asteroid4 = new Asteroid(350, -100, 100, 100, 20, asteroidImg)
+  asteroid5 = new Asteroid(450, -100, 100, 100, 20, asteroidImg)
+  asteroid6 = new Asteroid(550, -100, 100, 100, 20, asteroidImg)
+  asteroid7 = new Asteroid(650, -100, 100, 100, 20, asteroidImg)
+  asteroid8 = new Asteroid(750, -100, 100, 100, 20, asteroidImg)
+  heart1 = new Heart(30, 570, 50, 50, 0, fullheartImg)
+  heart2 = new Heart(80, 570, 50, 50, 0, fullheartImg)
+  heart3 = new Heart(130, 570, 50, 50, 0, fullheartImg)
   big_logo = new Thing(400, 300, 0, big_logo)
+  menu = new Menu(400, 460)
+  grandmaRocket = new Misc(650, 650, 47, 102, -4, grandmaRocketImg)
+  SDCRocket1 = new Misc(150, 650, 60, 68, -30, SDCRocketImg)
+  SDCRocket2 = new Misc(650, 650, 60, 68, -30, SDCRocketImg)
+  SDCRocket3 = new Misc(150, 650, 60, 68, -30, SDCRocketImg)
+  SDCRocket4 = new Misc(650, 650, 60, 68, -30, SDCRocketImg)
+  SDCRocket5 = new Misc(150, 650, 60, 68, -30, SDCRocketImg)
+  SDCRocket6 = new Misc(650, 650, 60, 68, -30, SDCRocketImg)
+  healingStation = new Station(400, -100, 800, 93, 20, healingStationImg)
+  play = new Misc(400, 300, 100, 100, 0, playImg)
   lyric01_ = new Lyric(400, 300, 800, 600, lyric01)
   lyric02_ = new Lyric(400, 300, 800, 600, lyric02)
   lyric03_ = new Lyric(400, 300, 800, 600, lyric03)
@@ -230,8 +355,10 @@ function mouseClicked() {
     theme.play()
     clicked = true
   }
-  if (clicked == true) {
-    console.log(millis())
+
+  if (menu.isClickedOn()) {
+    console.log("test2")
+    move()
   }
 }
 
@@ -247,12 +374,23 @@ function starSpeed(ms_var, star_speed, array) {
   }
 }
 
+function test() {
+  console.log("test")
+}
+
 function draw() {
   ms = millis() - ms_i
   background(0);
   screen.display()
   imageMode(CENTER)
   rocket.display()
+  grandmaRocket.display()
+  SDCRocket1.display()
+  SDCRocket2.display()
+  SDCRocket3.display()
+  SDCRocket4.display()
+  SDCRocket5.display()
+  SDCRocket6.display()
   frameRate(60)
   fill("white")
   textFont(font_reg)
@@ -265,24 +403,31 @@ function draw() {
   textFont(font);
   text(position, 15, 15);
 
+  if (clicked == false) {
+    play.display()
+  }
+  
   if (ms > 1200 && ms < 3600) {
     if (rocket.y > 520) {
       rocket.y -= 1.25
     }
   }
 
-  if (ms > 3600) {
+  if (ms > 3600 && ms < 132300) {
     playerMode = true
+    heart1.display()
+    heart2.display()
+    heart3.display()
   }
 
   if (keyIsDown(LEFT_ARROW) && playerMode == true) {
-    if (rocket.x > 0) {
+    if (rocket.x > 20) {
       rocket.moveLeft()
     }
   }
 
   if (keyIsDown(RIGHT_ARROW) && playerMode == true) {
-    if (rocket.x < width-5) {
+    if (rocket.x < width-20) {
       rocket.moveRight()
     }
   }
@@ -306,9 +451,34 @@ function draw() {
     //"The entire cosmos, unlocked to man."
   }
 
+  asteroid1.display()
+  asteroid2.display()
+  asteroid3.display()
+  asteroid4.display()
+  asteroid5.display()
+  asteroid6.display()
+  asteroid7.display()
+  asteroid8.display()
+
   if ((ms > 13200 && ms < 13800) || (ms > 14400 && ms < 15000) || (ms > 15600 && ms < 16200)) {
     lyric03_.display()
     //*Asteroid warning*
+  }
+
+  if (ms > 16200 && ms < 20400) {
+    asteroid1.move()
+    asteroid1.hit()
+    asteroid2.move()
+    asteroid3.move()
+    asteroid4.move()
+    asteroid5.move()
+    asteroid6.move()
+    asteroid7.move()
+    asteroid8.move()
+
+    if(hitState == true) {
+      heart3.damaged()
+    }
   }
 
   if (ms > 17400 && ms < 20250) {
@@ -442,6 +612,10 @@ function draw() {
     //"We're the reason your grandma isn't scared to board a spaceship!"
   }
 
+  if (ms > 68850) { //68850
+    grandmaRocket.move()
+  }
+
   if (ms > 70800 && ms < 74100) {
     lyric26_.display()
     //"We offer a wide variety of astronomically good services!"
@@ -475,6 +649,16 @@ function draw() {
   if (ms > 78000 && ms < 78900) {
     lyric32_.display()
     //"plus..."
+  }
+
+  if (ms > 78900) {
+    healingStation.display()
+    healingStation.move()
+    healingStation.heal()
+
+    if (healState == true) {
+      heart3.healed()
+    }
   }
 
   if (ms > 78900 && ms < 79500) {
@@ -556,6 +740,25 @@ function draw() {
     //"(Money-back guarantee!)"
   }
 
+  if (ms > 115800) {
+    SDCRocket1.move()
+  }
+  if (ms > 116400) {
+    SDCRocket2.move()
+  }
+  if (ms > 117000) {
+    SDCRocket3.move()
+  }
+  if (ms > 117600) {
+    SDCRocket4.move()
+  }
+  if (ms > 118200) {
+    SDCRocket5.move()
+  }
+  if (ms > 118800) {
+    SDCRocket6.move()
+  }
+
   if (ms > 118200 && ms < 122700) {
     lyric48_.display()
     //"So, if space feels too empty..."
@@ -599,5 +802,9 @@ function draw() {
   if (ms > 132300) {
     lyric55_.display()
     //"We'll be your rock!"
+  }
+
+  if (ms > 136200) {
+    menu.display()
   }
 }

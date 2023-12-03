@@ -7,7 +7,7 @@ function setup() {
 }
 
 function move() {
-  location.assign("02 Main Menu/index.html")
+  location.assign("01 Intro Sequence/index.html")
 }
 
 // function mouseClicked() {
@@ -16,5 +16,6 @@ function move() {
 
 function draw() {
   background(220);
+  move() //Calling it right away just for convenience right now
   button.mousePressed(() => {move()})
 }
