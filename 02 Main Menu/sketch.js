@@ -1,9 +1,3 @@
-let img
-
-function preload() {
-  img = loadImage("../rocket.png")
-}
-
 function setup() {
   createCanvas(800, 800);
 }
