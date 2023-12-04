@@ -331,13 +331,6 @@ function setup() {
   lyric55_ = new Lyric(400, 300, 800, 600, lyric55)
 }
 
-let random_n
-
-function starFall(array) {
-  array[random_n].move()
-  array[random_n].display()
-}
-
 function print_som() {
   console.log("som")
 }

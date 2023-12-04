@@ -28,6 +28,6 @@ function move04() {
 
 function draw() {
   background(220);
-  move02() //Calling it right away just for convenience right now
+  move03() //Calling it right away just for convenience right now
   button.mousePressed(() => {move()})
 }
