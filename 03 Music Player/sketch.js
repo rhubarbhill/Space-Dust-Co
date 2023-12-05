@@ -3,6 +3,7 @@ let playImg, pauseImg
 let song01, song02, song03, song04, song05, song06, song07, song08, song09, song10, song11, song12
 let tracks = []
 let starImg, rocketImg
+let m02
 
 function preload() {
   screenImg = loadImage("art 03/music player.png")
@@ -29,6 +30,9 @@ function preload() {
   song10 = loadSound("sounds 03/10 Wichita Lineman.mp3")
   song11 = loadSound("sounds 03/11 All of Me.mp3")
   song12 = loadSound("sounds 03/12 In Memory of a Star.mp3")
+
+  m02 = createButton('<-----')
+  m02.position(0, 579)
 }
 
 class Song {
@@ -178,8 +182,14 @@ function draw() {
   // track01.display()
 
   //debugging
-  let position = mouseX + " " + mouseY;
+  // let position = mouseX + " " + mouseY;
   fill(255);
   textSize(20);
-  text(position, 15, 15);
+  // text(position, 15, 15);
+
+  m02.mousePressed(() => {move02()})
+}
+
+function move02() {
+  location.assign("../02 Main Menu/index.html")
 }

@@ -206,7 +206,7 @@ class Menu {
 }
 }
 
-function move() {
+function move_() {
   location.assign("../02 Main Menu/index.html")
 }
 
@@ -351,7 +351,7 @@ function mouseClicked() {
 
   if (menu.isClickedOn()) {
     console.log("test2")
-    move()
+    move_()
   }
 }
 
@@ -389,12 +389,12 @@ function draw() {
   textFont(font_reg)
 
   // debug: temporary to display x,y coords on screen
-  let position = mouseX + " " + mouseY;
+  // let position = mouseX + " " + mouseY;
 
   fill(255);
   textSize(20);
   textFont(font);
-  text(position, 15, 15);
+  // text(position, 15, 15);
 
   if (clicked == false) {
     play.display()

@@ -1,9 +1,15 @@
-let button
+let big_logo_img
+
+function preload() {
+  big_logo_img = loadImage("./art/big logo.png")
+}
 
 function setup() {
-  createCanvas(400, 400);
-  button = createButton('click me');
-  button.position(100, 100);
+  createCanvas(800, 600);
+  m01 = createButton('Go to Intro Sequence');
+  m01.position(300, 410);
+  m02 = createButton('Go to Main Menu');
+  m02.position(300, 450);
 }
 
 function move01() {
@@ -27,7 +33,8 @@ function move04() {
 // }
 
 function draw() {
-  background(220);
-  move03() //Calling it right away just for convenience right now
-  button.mousePressed(() => {move()})
+  background(0);
+  image(big_logo_img, 0, 0)
+  m01.mousePressed(() => {move01()})
+  m02.mousePressed(() => {move02()})
 }

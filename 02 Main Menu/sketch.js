@@ -1,6 +1,7 @@
 let startImg, menu_screenImg, menuTheme
 let font
 let aboutBImg, playerBImg, aboutB, playerB
+let m01
 // let starImg, starA_, starP_
 // let starA = false
 // let starP = false
@@ -21,6 +22,8 @@ function setup() {
   createCanvas(800, 600); 
   aboutB = new Button(aboutBImg, 247, 419, 238, 138) //128, 350
   playerB = new Button(playerBImg, 555, 419, 238, 138) //436, 350
+  m01 = createButton('Go Back to Intro Sequence');
+  m01.position(300, 600);
   // starA_ = new Star(starImg, 247, 419, 50, 50)
   // starP_ = new Star(starImg, 555, 419, 50, 50)
 }
@@ -124,10 +127,15 @@ function draw() {
   }
 
   // debug: temporary to display x,y coords on screen
-  let position = mouseX + " " + mouseY;
+  // let position = mouseX + " " + mouseY;
 
-  fill(255);
-  textSize(20);
-  textFont(font);
-  text(position, 15, 15);
+  // fill(255);
+  // textSize(20);
+  // textFont(font);
+  // text(position, 15, 15);
+  m01.mousePressed(() => {move01()})
+}
+
+function move01() {
+  location.assign("../01 Intro Sequence/index.html")
 }
